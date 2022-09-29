@@ -1,0 +1,81 @@
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+body {
+    text-align: center;
+    background-color: #333;
+    color: #fff;
+}
+.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.pizza-imagen {
+    width: 90%;
+    border-radius: 10px;
+}
+.pizza-imagen-err {
+    width: 100%;
+    border-radius: 10px;
+}
+#number {
+    width: 70%;
+    max-width: 350px;
+    height: 35px;
+    padding-left: 15px;
+    margin: 15px 0;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+#consult-button {
+    margin-top: 10px;
+    width: 100px;
+    height: 40px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #fff;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,39,121,1) 0%, rgba(0,212,255,1) 100%);
+}
+#consult-button:hover {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(2,26,89,1) 0%, rgba(0,127,153,1) 100%);
+}
+.pizzas-container small {
+    color: #dc3545;
+    text-align: center;
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+}
+.card-container {
+    background-color: #444;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 10px;
+    margin: auto;
+}
+ul {
+    padding: 0;
+}
+li {
+    text-decoration: none;
+    list-style:none;
+}
+.pizza-info {
+    display: flex;
+    justify-content: space-around;
+    text-align: left;
+}
+@media (max-width: 425px) {
+    .pizza-info {
+        flex-direction: column;
+        text-align: center;
+    }
+}
