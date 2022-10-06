@@ -1,59 +1,36 @@
-// constructor de la clase pizza
-class Pizza {
-    constructor(id, nombre, ingredientes, precio){  
-        this.id = id;
-        this.nombre = nombre;
-        this.ingredientes = ingredientes;
-        this.precio = precio;
-    }
-};
-
-// array de objetos de Pizzas
-const Pizzas = [
-    new Pizza(1, 'Muzzarella', ['salsa','jamón','aceitunas','mozzarella'],'900'),
-    new Pizza(2, 'Fugazzeta', ['salsa','aceitunas','cebolla','queso'],'1300'),
-    new Pizza(3, 'Calabresa', ['salsa','calabresa','mozzarella','orégano'],'500'),
-    new Pizza(4, 'Argentina', ['salsa','jamon','mozzarella','huevos','papas fritas'],'1500'),
-    new Pizza(5, 'Rucula', ['salsa', 'provolone','rucula','aceitunas'],'1250'),
-    new Pizza(6, 'Palmitos y salsa golf', ['salsa','palmitos', 'salsa golf','queso'],'1350')
-];
-
-// definicion de variables
 const inputNumber = document.getElementById("number");
 const button = document.getElementById("consult-button");
 const cardContainer = document.querySelector(".card-container");
+const baseUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
-// local storage
-const pizzas = JSON.parse(localStorage.getItem('pizzas')) || [];
-
-const saveLocalStorage = pizz => {
-    localStorage.setItem('pizzas', JSON.stringify(pizz));
+const genericFetch = async (url) => {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
 };
 
-// mostrar la pizza disponible
-const showPizza = () => {
-    const valor = inputNumber.value.trim();
-    const pizza = Pizzas.filter((e) => e.id == valor);
+const showPokemon = async () => {
+    try {
+        const valor = inputNumber.value.trim();
+        const pokemon = await genericFetch(baseUrl + `${valor}/`);
     
-    if(!valor.length) {
-        alert("Por favor ingrese un valor");
-        return
-    } else if (!pizza.length) {
-        showError(inputNumber,"No ingresó una pizza disponible");
+        if(!valor.length) {
+            alert("Por favor ingrese un valor");
+            return;
+        } else {
+            showSuccess(inputNumber);
+        };
+        
         inputNumber.value = "";
-        renderPizza("");
-        saveLocalStorage([]);
-        return
-    } else {
-        showSuccess(inputNumber);
+        renderPokemon(pokemon);
+    } catch (err) {
+        showError(inputNumber,"No ingresó un Pokemon disponible");
+        inputNumber.value = "";
+        renderPokemon("");
+        console.log(err)
     };
-    
-    inputNumber.value = "";
-    renderPizza(pizza);
-    saveLocalStorage(pizza);
 };
 
-// muestro el error
 const showError = (input,message) => {
     const pizzasContainer = input.parentElement;
     const error = pizzasContainer.querySelector("small");
@@ -66,32 +43,31 @@ const showSuccess = (input) => {
     error.textContent = "";
 };
 
-const renderPizza = (pizza) => {
-    if (pizza.length) {
-        const nombre = pizza.map((e) => e.nombre);
-        const ingredientes = pizza.map((e) => e.ingredientes);
-        const precio = pizza.map((e) => e.precio);
-
+const renderPokemon = (pokemon) => {
+    if (pokemon.id) {
         cardContainer.innerHTML = `
-        <h2 class="pizza-nombre">${nombre}</h2>
-        <img class="pizza-imagen" src="./imagenes/${nombre.toString().toLowerCase()}.jpg" alt="pizza">
-        <div class="pizza-info">
-        <ul class="pizza-ingredientes"><strong>Ingredientes:</strong> ${renderIngredientes(ingredientes)}</ul>
-        <p class="pizza-precio"><strong>Precio:</strong> $"${precio},00"</p>
+        <img src="${pokemon.sprites.other.home.front_default}"/>
+        <h2 class="poke poke-name">${pokemon.name.toUpperCase()}</h2>
+        <div class="poke-info">
+        <div class="poke poke-tipo">
+        ${pokemon.types
+            .map((tipo) => {
+                return `<span class="poke__type">${tipo.type.name}</span>`;
+            })
+            .join("")}
+            </div>
+            <span class="poke-exp">EXP: ${pokemon.base_experience}</span>
+            <p class="height">Height: ${pokemon.height / 10}m</p>
+            <p class="weight">Weight: ${pokemon.weight / 10}Kg</p>
+            <p class="poke poke-id">#${pokemon.id}</p>
         </div>`
-    } else if (pizza === "") {
-        cardContainer.innerHTML = `
-        <img class="pizza-imagen-err" src="./imagenes/no-image-available.jpg" alt="pizza">`
+    } else if (pokemon === "") {
+        cardContainer.innerHTML = ``
     };
 };
 
-const renderIngredientes = (ingredientes) => {
-    return ingredientes[0].map((i) => `<li>- ${i}</li>`).join("");
-};
-
 const init = () => {
-    renderPizza(pizzas);
-    button.addEventListener("click", showPizza);
+    button.addEventListener("click", showPokemon);
 };
 
 init();

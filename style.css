@@ -13,13 +13,8 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
 }
-.pizza-imagen {
-    width: 90%;
-    border-radius: 10px;
-}
-.pizza-imagen-err {
-    width: 100%;
-    border-radius: 10px;
+.pokemons-container img {
+    width: 400px;
 }
 #number {
     width: 70%;
@@ -47,7 +42,7 @@ body {
     background: rgb(2,0,36);
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(2,26,89,1) 0%, rgba(0,127,153,1) 100%);
 }
-.pizzas-container small {
+.pokemons-container small {
     color: #dc3545;
     text-align: center;
     width: 300px;
@@ -57,25 +52,28 @@ body {
 .card-container {
     background-color: #444;
     width: 90%;
-    max-width: 600px;
+    max-width: 300px;
     border-radius: 10px;
     margin: auto;
 }
-ul {
-    padding: 0;
+/* pokemon card */
+.card-container img {
+    width: 200px;
 }
-li {
-    text-decoration: none;
-    list-style:none;
+.poke {
+    width: min-content;
+    padding: 2px;
+    border-radius: 5px;
+    margin: 10px auto;
 }
-.pizza-info {
-    display: flex;
-    justify-content: space-around;
-    text-align: left;
+.poke-name {
+    color: #FFCB15;
+    background-color: #333;
 }
-@media (max-width: 425px) {
-    .pizza-info {
-        flex-direction: column;
-        text-align: center;
-    }
+.poke-id {
+    color: #2C70B6;
+    background-color: #fff;
+}
+.poke-tipo {
+    background-color: #1C2C5E;
 }
