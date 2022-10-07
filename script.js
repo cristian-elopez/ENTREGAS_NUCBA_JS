@@ -57,8 +57,8 @@ const renderPokemon = (pokemon) => {
             .join("")}
             </div>
             <span class="poke-exp">EXP: ${pokemon.base_experience}</span>
-            <p class="height">Height: ${pokemon.height / 10}m</p>
-            <p class="weight">Weight: ${pokemon.weight / 10}Kg</p>
+            <p class="height">Alto: ${pokemon.height / 10}m</p>
+            <p class="weight">Peso: ${pokemon.weight / 10}Kg</p>
             <p class="poke poke-id">#${pokemon.id}</p>
         </div>`
     } else if (pokemon === "") {

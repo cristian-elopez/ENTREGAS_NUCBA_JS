@@ -14,7 +14,8 @@ body {
     flex-wrap: wrap;
 }
 .pokemons-container img {
-    width: 400px;
+    width: 90%;
+    max-width: 400px;
 }
 #number {
     width: 70%;
